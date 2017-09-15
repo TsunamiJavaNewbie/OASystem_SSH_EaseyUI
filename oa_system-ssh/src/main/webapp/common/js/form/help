@@ -1,0 +1,14 @@
+var options = {
+	dataType : 'json', success : callbackmethod, beforeSubmit : function() {
+		var flag = $('#inputForm').form('validate');
+		if (flag) {
+			//$.messager.progress({title : '温馨提示', msg : '正在提交数据...'});
+			$(document).mask('正在处理中，请稍候...');
+		}
+		return flag;
+	}
+};
+$('#inputForm').submit(function() {
+	$(this).ajaxSubmit(options);
+	return false;
+});

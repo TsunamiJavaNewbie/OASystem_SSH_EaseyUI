@@ -1,0 +1,42 @@
+[
+	{
+		"id": 8,
+		"text": "部门管理",
+		"url": "/system/sys-department.action"
+	},
+	{
+		"id": 9,
+		"text": "用户管理",
+		"url": "/system/sys-user.action"
+	},
+	{
+		"id": 12,
+		"text": "菜单管理",
+		"url": "/system/sys-menu.action"
+	},
+	{
+		"id": 13,
+		"text": "角色管理",
+		"url": "/system/sys-role.action"
+	},
+	{
+		"id": 14,
+		"text": "员工请假申请",
+		"url": "/activiti/task.action?role=张三"
+	},
+	{
+		"id": 15,
+		"text": "经理请假审批",
+		"url": "/activiti/task.action?role=李四"
+	},
+	{
+		"id": 16,
+		"text": "Hr请假登记",
+		"url": "/activiti/task.action?role=王五"
+	},
+	{
+		"id": 16,
+		"text": "流程管理",
+		"url": "/activiti/process-definition.action"
+	}
+]

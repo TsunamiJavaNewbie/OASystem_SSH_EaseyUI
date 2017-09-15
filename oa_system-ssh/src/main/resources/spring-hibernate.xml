@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 配置数据源 使用的是Druid数据源 -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
+		<!-- 初始化连接大小 -->
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="5"></property>
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="100"></property>
+		<!-- 连接池最小空闲 -->
+		<property name="maxIdle" value="3"></property>
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="2"></property>
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="5000"></property>
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="true"></property>
+		<!-- 1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="1800"></property>
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true"></property>
+
+	</bean>
+
+	<!-- 配置hibernate的SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 注入数据源 相关信息看源码 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 扫描hibernate注解配置的entity -->
+		<property name="packagesToScan" value="com.tsunami.oa.web.system.entity" />
+		<!-- hibernate配置信息 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> -->
+
+				<!-- 配置启用二级缓存 -->
+				<!-- 针对使用get(),load()方法加载对象时使用二级缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<!-- 使用query,criteria接口查询出来的数据使用二级缓存 -->
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<!-- 设置第三方提供的缓存类 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+				<!--设置缓存的配置文件路径 -->
+				<!-- <prop key="hibernate.cache.provider_configuration_file_resource_path">WEB-INF/classes/ehcache.xml</prop> --><!-- 加载缓存所需配置文件 -->
+				<prop key="hibernate.net.sf.ehcache.configurationResourceName">classpath:ehcache.xml</prop>
+
+			</props>
+		</property>
+	</bean>
+</beans>
